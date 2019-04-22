@@ -1,211 +1,310 @@
-<!DOCTYPE html>
-<html>
-    <meta charset="UTF-8">
-    <head>
-        <title>Interactive Design</title>
-      
-        <script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
-        
-        <style>
-        h1 { 
-        font-family: sans-serif;
-        text-align: center;
-        }
 
-        svg {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        border: 1px solid black;
-        }
+<!DOCTYPE HTML>
+<html xml:lang="en" lang="en">
+<head>
+  <title>CSE442 | Citiviz</title>
+  <link rel="stylesheet" type="text/css" href="css/jquery.fullPage.css" />
+  <link rel="stylesheet" type="text/css" href="css/index.css" />
+  <link rel="stylesheet" type="text/css" href="css/mapDateSlider.css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600" rel="stylesheet">
+  <script type="text/javascript" src="js/d3.min.js"></script>
+  <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="js/jquery.fullPage.min.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+  <script type="text/javascript" src="js/countUp.js"></script>
+  <script type="text/javascript" src="js/simpleLine.js"></script>
+</head>
+<body>
+    <script>document.body.className += ' fade-out';</script>
+	<div id = "fullpage">
+		<div class="section" id="titleSection" style="display: table">
+			<div class = "row" style="height:50px">
+				<div class="header">
+					<div class="title" style="margin-left: 1.5%; float: left; font-size: 56px;">Change in Times</div>
+					<div class="subtitle" style="float: left; padding-top: 42px; padding-left: 20px; font-size:18px">An exploration of Seattle's economic landscape</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="column" style="width: 45%; margin-left: 7.5%; margin-right: 2.5%;height: 100%; display:table">
+					<div style="display: table-cell; vertical-align: middle;">
+						<p>
+							Seattle is widely acknowledged as one of the fastest growing cities in the country. Recently, its reputation has changed from that of a rainy city with great coffee to one of the top economic and technological hubs in the United States. While it is clear that the economy has dramatically changed over time, the answer to exactly how the economy has changed is a little more nuanced. This set of visualizations attempts to answer the question of how Seattle's economic landscape has changed from 2010 to 2016 by examining business licenses and the housing market.
+						</p>
+                        <p style="color: #b5b5b5">
+                            Note: this site functions best in Chrome
+                        </p>
+					</div>
+				</div>
+				<div class="column" style="height: 100%; display: table; width: 30%; margin-left: 7.5%;margin-right: 7.5%;">
+					<div class="row" style="height: 50%; width: 100%; display: table">
+						<div class="row" id="businessOverview" style="height: 50%">
+						</div>
+						<div class="row">
+							<div id="businessOverviewCount" style="font-size: 64px; text-align: left">
+							</div>
+							<div id="businessOverviewDate" style="font-size: 14px; text-align: left">
+								Active Businesses as of 2016
+							</div>
+						</div>
+					</div>
+					<div class="row" style="height: 50%; width: 100%; display: table">
+						<div class="row" id="homeOverview" style="height: 50%; text-align: left">
+						</div>
+						<div class="row">
+							<div id="homeOverviewCount" style="font-size: 64px; text-align: left">
+								$
+							</div>
+							<div id="homeOverviewDate" style="font-size: 14px; text-align: left">
+								Median Home Value as of March 2017
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="section" style="width: 100%; display: table">
+            <div class="row" style="height: 5%;"></div>
+			<div class="row" style="height: 15%; margin-top: 2.5%;">
+				<div style="display: table; float: left; margin-top: 1%; margin-left: 4%; width: 46%; margin-right: 2%">
+					<div style="display: table-cell; text-align: justify">
+						<p>
+							<span style="font-size: 18px; font-weight: 400">Businesses</span>
+                                are considered to be a driving force behind Seattle's rapid growth. However, perhaps surprisingly, the total number of businesses has not changed dramatically within the decade, with the exception of 2015. Note that this sudden increase in 2015 can perhaps be partially attributed to inconsistencies in how the city of Seattle tracks business licenses, because many sectors report more pre-existing businesses in the year of 2015 then existed in 2014.
+						</p>
+					</div>
+				</div>
+				<div style="display: table; float: left; margin-top: 1.25%; margin-left: 2%; width: 42%; margin-right: 4%">
+					<div style="display: table-cell; padding-right: 45px">
+						<p>
+                            To interact with the visualization, try selecting different sectors by clicking the stream graph or the navigation bar. The sectors are ordered on the left by number of businesses (highest at top). Click a bar to see <item id="bizviz0">a visualization of businesses</item> that are left behind from year to year, and businesses that are added. Click anywhere else to return to <item id="bizviz1">the original view.</item>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div id="businessVisualization" style="width: 100%; padding-left: 2.5%; padding-right: 2.5%; display: table-cell; text-align: center; vertical-align: middle; margin: auto">
+				</div>
+			</div>
+		</div>
+		<div class="section">
+			<div class="column" style="height: 100%; width: 42.5%; margin-left: 5%; margin-right: 2.5%; display: table;">
+				<div style="display: table-cell; vertical-align: middle;">
+					<p>
+						<span style="font-size: 18px; font-weight: 400">What about tech?</span>
+                       Despite Seattle's reputation as a burgeoning hub of technology, the number and proportion of technology related businesses in Seattle has not changed dramatically over the last 6 years. In fact, tech made up 11.6% as of the beginning of 2011, and made up 11.8% of businesses as of the beginning of 2017. However, these raw counts do not tell the full story. As evidenced by <a href = "http://www.seattletimes.com/business/real-estate/facebook-could-double-seattle-presence-with-another-big-new-office/" target="_blank"> Facebook doubling its presence in the Seattle Area</a>, <a href = "https://www.theverge.com/2017/2/24/14723866/apple-ai-seattle-machine-learning-offices" target="_blank"> Apple expanding its Seattle offices</a>, or <a href = "https://www.usatoday.com/story/tech/news/2017/05/09/amazon-spheres-downtown-seattle/101434584/" target="_blank"> Amazon building a massive new office in Seattle  </a>, technology companies are investing more in Seattle and even though the raw number of licenses are not increasing, the amount of money companies are pouring into Seattle certainly is. Hover over the graph to see how the number of tech businesses, and the percentage they make up of the total number of businesses in Seattle has changed over time.
+					</p>
+				</div>
+			</div>
+			<div class="column" style="height: 100%; width: 45%; margin-left: 2.5%; margin-right: 2.5%; display: table;">
+				<div id="techPlot" style="width: 100%; display: table-cell; vertical-align: middle; margin: auto; text-align: center;">
+				</div>
+			</div>
+		</div>
+		<div class="section">
+			<div class="column" style="height: 100%; width: 45%; margin-left: 2.5%; margin-right: 2.5%; display: table;">
+				<div id="taxiPlot" style="width: 100%; display: table-cell; vertical-align: middle; margin: auto; text-align: center;">
+				</div>
+			</div>
+			<div class="column" style="height: 100%; width: 40%; margin-left: 0%; margin-right: 5%; display: table;">
+				<div style="display: table-cell; vertical-align: middle;">
+					<p>
+						<span style="font-size: 18px; font-weight: 400">A short look at the taxi industry.</span> Taxi licenses, a subset comprising almost the entirety of the Transportation and Warehousing sector, has risen from 4.1% of total businesses in Seattle at the beginning of 2011 to 12.6% at the start of 2016. This can be at least partially explained by the <a href="https://www.engadget.com/2014/07/14/seattle-votes-to-legalize-ridesharing/" target="_blank">legalization of ridesharing</a> in <item id="taxi0">2014</item>, as the definition of the transportation drastically changed with the advent of ridesharing platforms such as Uber and Lyft.
+					</p>
+				</div>
+			</div>
+		</div>
+        <div class="section">
+            <div class="column" style="height: 100%; width: 40%; margin-left: 5%; margin-right: 2.5%; display: table;">
+                <div style="display: table-cell; vertical-align: middle;">
+                    <p>
+                        <span style="font-size: 18px; font-weight: 400">But Seattle is big.</span>
+                        And diverse. Looking at aggregate counts and percentages doesn't give a nuanced enough view of how the city is changing. The number of businesses may be increasing steadily over the years, but the increase is not uniformly distributed throughout the city. This map shows the distribution of business by ZIP code.
+                        It provides a more informative view of the distribution of <item id="mapsector0">Transportation and Warehousing</item> businesses in Seattle. Interestingly, we see that the zip codes on the outskirts of Seattle, notably 98118 and 98133, have a lot of activity in this particular sector.
+                    </p>
+                    <p>
+                        Mouse over the right side of the screen to pause the animation. Click on the drop-down menu to explore a different business sector, and drag the slider to change the year viewed. Mouse back to the left side of the screen to allow the animation to resume.
+                    </p>
+                </div>
+            </div>
+			<div class="column" id="businessMapColumn" style="height: 100%; width: 45%; margin-left: 2.5%; margin-right: 2.5%; display: table; vertical-align: middle">
+                <div class="row" style="height: 5%">
+                </div>
+                <div class="row" id="businessMenu" style="width: 50%; height: 20px; vertical-align: bottom; text-align: center; margin: auto;">
+                    <div class="dropdown">
+                      <button id="dropbutton" onclick="dropdown()" class="dropbtn" data-index="1">Aggregate &#9662;</button>
+                      <div id="myDropdown" class="dropdown-content">
+                      </div>
+                    </div>
+                </div>
+				<div class="row" id="businessMap" style="width: 100%; padding-top: 2%; padding-bottom: 5%; display: table-cell;  text-align: center;">
+				</div>
+			</div>
+		</div>
+        <div class="section">
+            <div class="column" style="height:100%; width:100%; display: table">
+                <div class="row" style="width: 82.5%; margin-left: 7.5%; margin-right: 10%; margin-top: 10%; height: 20%; display:table">
+					<div style="display: table-cell; vertical-align: middle;">
+						<p>
+                            <span style="font-size: 18px; font-weight: 400">Let's take a look at housing.</span>
+                            While businesses may be a driving force behind Seattle's growth, the raw counts of business licenses alone do not tell the whole story. What is perhaps more representative of change is the housing landscape.
+                            Housing prices reflects the cost of living in an area and thus affects residents more directly than the number of businesses. Below are the median home values for Seattle and three cities that are notorious
+                            for expensive housing: New York City, Los Angeles, and San Francisco. It's interesting to note that Seattle had the highest
+                           <item id="cityhousing0"> percentage increase</item> in median housing prices from 2010 to 2017.
+						</p>
+					</div>
+				</div>
+                <div class="row" style="width: 100%; display: table; margin-left: 5%; padding-right: 45px;">
+                        <div style="width: 95%; margin-right: 5%;">
+                            <div class="column" style="width: 22.5%;">
+                                <div id="newyork" style="vertical-align: middle; text-align: center">
+                                </div>
+                            </div>
+                            <div class="column" style="width: 22.5%;">
+                                <div id="losangeles" style="vertical-align: middle; text-align: center">
+                                </div>
+                            </div>
+                            <div class="column" style="width: 22.5%;">
+                                <div id="sanfrancisco" style="width: 100%; vertical-align: middle; text-align: center">
+                                </div>
+                            </div>
+                            <div class="column" style="width: 22.5%;">
+                                <div id="seattle" style="vertical-align: middle; text-align: center">
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="column" style="height:100%; width:100%; display: table">
+                <div class="row" style="height: 20%"></div>
+                <div class="row" style="width: 100%; display: table">
+                    <div class="column" style="width: 22.5%; margin-left: 16.25%">
+                        <div id="losangelesdemand" style="vertical-align: middle; text-align: center">
+                        </div>
+                    </div>
+                    <div class="column" style="width: 22.5%;">
+                        <div id="sfdemand" style="width: 100%; vertical-align: middle; text-align: center">
+                        </div>
+                    </div>
+                    <div class="column" style="width: 22.5%; margin-right: 16.25%">
+                        <div id="seattledemand" style="vertical-align: middle; text-align: center">
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="width: 82.5%; margin-left: 7.5%; margin-right: 10%; height: 20%; display:table">
+                    <div style="display: table-cell; vertical-align: middle;">
+                        <p>
+                            <span style="font-size: 18px; font-weight: 400">Supply and demand: days on market.</span> While Seattle housing prices are skyrocketing, housing supply for demand seems to be quickly decreasing. Take a look at the average number of days
+                            houses were on the market in Seattle, Los Angeles, and San Francisco in <item id="demand0">December 2016</item>. The fact that houses in Seattle are being bought very quickly, coupled with rising housing prices, shows that the demand for housing in Seattle is growing to quickly for supply to keep up.
+                            <p style="color: #b5b5b5">
+                                Note: no data for this measure was available for the city of New York.
+                            </p>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div style="display: table; width: 82.5%; margin-left: 7.5%; margin-right: 10%; height: 100%">
+                <div style="display: table-cell; width: 100%; vertical-align: middle;">
+                    <p>
+                      <span style="font-size: 18px; font-weight: 400">Bringing it all together.</span>
+                        So far, we've been looking at business and housing data independently. However, it's important to consider influences from both businesses and housing in order to get a more complete picture.
+                    </p>
+                    <p>
+                        On the next page you will find a visualization that combines both elements to allow for a more holistic exploration of Seattle's economic landscape. The map represents the median home value of each zipcode in each year between 2010 to 2017. Click on any zipcode to further explore trends over time in median home values and breakdown of the most popular business sectors. Click on each business sector in the radial chart to see a breakdown of that sector from 2010 to 2017 in that area. The darker the sector is in color, the more popular it is when looking at Seattle as a whole.
+                    </p>
 
-        .dot_data {
-        fill: #ffab00;
-        stroke: #fff;
-        }  
-            
-        .dot_data2 {
-        fill: #ffff00;
-        stroke: #fff;
-        }     
-            
-        </style>
-  </head>
-  <body>
-    <h1>D3 Assignment</h1>
-    <svg class="chart"></svg>
-      
-    <script>
-        const svgWidth = 1200;
-        const svgHeight = 600;
-
-    var allData;
-
-    //Load data 
-	var index = 0;
-    var dataset = [];
-        /*
-		d3.csv("climate-change.csv", (row, i) => {
-		  return {
-			sale: +row["CO2 emissions (kg per 2010 US$ of GDP)"],
-			year: +row.year,
-            country: +row.country,
-		  };
-		}).then(rows => {
-		  rows.sort(function(a,b) {return (a.name).localeCompare(b.name); });
-          allData = rows;   
-		}).catch(error => {
-		  console.log(error);
-		});
-			*/
-            d3.csv("climate-change.csv", function(d){
-               //console.log(data);
-                //console.log(data["Country Name"]);
-                return{
-                    Country:d["Country Name"],
-                    year:d.Year,
-                    Emission:d["CO2 emissions (kg per 2010 US$ of GDP)"]
-                    
-                }
-                
-            },
-            function(data)
-            {
-                const svgWidth = 1200;
-                const svgHeight = 600;
-        
-        //ADD SVG TO THE PAGE!
-                let svg = d3.select(".chart")
-                .style("width",svgWidth)
-                .style("height",svgHeight);
-        
-        //**************************************************************************************************************
-        
-                let MARGINS = {
-                    top: 25,
-                    right: 50,
-                    bottom: 25,
-                    left: 50}
-            ,WIDTH = svgWidth - MARGINS.left - MARGINS.right
-            ,HEIGHT = svgHeight - MARGINS.top - MARGINS.bottom;
-        
-                //SCALES
-                let xScale = d3.scaleLinear().domain([2000, 2010]).range([MARGINS.left, WIDTH]);
-                let yScale = d3.scaleLinear().domain([134, 215]).range([HEIGHT, MARGINS.bottom]);
-
-                //AXES
-                let xAxis = d3.axisBottom().scale(xScale);
-                let yAxis = d3.axisLeft().scale(yScale);
-
-                //ADD THE X AXIS
-                svg.append("g")
-                    .attr("class", "x axis")
-                    .attr("transform", "translate(0," + HEIGHT + ")")
-                    .call(xAxis);
-        
-                //ADD THE Y AXIS
-                svg.append("g")
-                    .attr("class", "y axis")
-                    .attr("transform", "translate(" + (MARGINS.left) + ",0)")
-                .call(yAxis);
-        
-                 //TEXT LABEL FOR X Axis
-                svg.append("text")             
-                    .attr("transform",
-                        "translate(" + 1100 + " ," + 
-                        (HEIGHT + MARGINS.top + 10) + ")")
-                    .style("text-anchor", "middle")
-                    .text("Year");
-        
-                //TEXT LABEL FOR Y Axis
-                svg.append("text")
-                    .attr("transform", "rotate(-90)")
-                    .attr("x",0 - (2 * MARGINS.top))
-                    .attr("y", MARGINS.left)
-                    .attr("dy", "1em")
-                    .style("text-anchor", "middle")
-                    .text("Sales"); 
-
-
-                 //*****************************************************************************************************************
-            
-                //d3 LINE GENERATOR 
-                let lineGen = d3.line()
-                    .x(function(d) {
-                        return xScale(d.year);
-                    })
-                    .y(function(d) {
-                        return yScale(d.sale);
-                    })
-                    .curve(d3.curveMonotoneX);               // apply smoothing to the line;
-
-            //*******************************************************************************************************************
-            //PLOT DATASET 1
-            update(data);
-            
-            let color = 'green';
-            makeLines(data, lineGen, color);
-
-            
-            function makeLines(data, lineGen,color){
-            //LINE FOR SAMPLE DATA 1
-            let path = svg.append('path')
-                .attr('d', lineGen(data))   
-                .attr('stroke', color)
-                .attr('stroke-width', 2)
-                .attr('fill', 'none');
-            
-            //Add animation to the line graph
-            let totalLength = path.node().getTotalLength();
-            
-                path.attr("stroke-dasharray", totalLength + " " + totalLength)
-                .attr("stroke-dashoffset", totalLength)
-                .transition()
-                .duration(6000)
-                .attr("stroke-dashoffset", 0);
-            }
-            
-            
-            function update(data){
-            let scatter = svg.selectAll(".dot_data").data(data);
-            
-            let enter = scatter.enter().append("circle")
-                .on("mouseover", function(d){ 
-                    d3.select(this).transition()
-                    .attr("stroke-width", "5px")
-                    .attr("r", 10);})
-                .on("mouseout", function(){ 
-                    d3.select(this).transition()
-                    .delay(1000)
-                    .attr("stroke-width","0px")
-                    .attr("r",5);});
-            
-            enter.append("title")
-                .text(function(d){ return ('(' + d.year + ", " + d.sale + ')'); });
-            
-            enter.merge(scatter).transition().duration(500)
-                .attr("class", "dot_data")
-                .attr("r", 5)
-                .attr("cx", function(d){return xScale(d.year); })
-                .attr("cy", function(d){return yScale(d.sale); });
-                
-            
-            scatter.exit().transition().duration(500)
-            .attr("cx",0)
-            .attr("fill-opacity",0)
-            .remove();
-        }
-
-            
-
-            }
-            
-            
-            
-            )
-			
-		
-        
-    </script>
-  </body>
+                    <p>
+                      What are the most popular types of businesses in each area? How do the types of businesses in an area correspond with the home values there? What does ultimately this mean for residents who live there? These are all important questions to think about as new businesses move into Seattle and as the housing market continues to grow.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="column" id="mapdiv" style="height: 100%; width: 30%; margin-left: 9%; padding-left: 5%; display: table;">
+                <div class="row" id="bigmap" style="height: 100%; padding-top: 2.5%; display: table-cell; vertical-align: middle; text-align: center">
+                </div>
+            </div>
+            <div class="column" style="height: 100%; width: 60%; margin-left: -4.5%; padding-right: 0%; display: table">
+                <div class="row" id="miniHousing" style="height: 40%; diplay: table-cell; text-align: center">
+                </div>
+                <div class="row" id="radialBusiness" style="height: 60%; display: table-cell; vertical-align: middle; text-align: center">
+                </div>
+            </div>
+        </div>
+        <div class="section" style="display: table; width: 100%">
+            <div class="row" style="height:50%; width: 100%;">
+				<div class="header">
+					<div class="title" style="margin-left: 1.5%; float: left; font-size: 36px;">Sources</div>
+				</div>
+                <div class="column" style="width: 43%; margin-left: 4%; margin-right: 2%">
+                    <p style="font-weight: 400">
+                        Business Data:
+                    </p>
+                    <p>
+                        <span style="font-weight: 400">The City of Seattle</span> provides a dataset of active business licenses from the years 2010 to 2016. Each entry in this dataset holds the various attributes such as: Business Legal Name Trade Name License Start Date Location NAICS Code NAICS Description What is particularly interesting in this data set is the inclusion of the NAICS Code (standing for 'North American Industry Classification System' Code). These are 2 to 6 digit codes that represent a sectors or subsectors within industry. For example, '48' represents the sector 'Transportation and Warehousing', while '485310' represents 'Taxi Service', and '485320' represents 'Limousine Service'.
+                    </p>
+                    <p>
+                        Here's Seattle data portal: <a href="https://data.seattle.gov/">https://data.seattle.gov/</a></br>
+                        And the particular datasets we used, per year: <a href="https://data.seattle.gov/Finance/2010-Active-Business-License-Data/evxh-x3jp" target="_blank">2010</a>
+                        <a href="https://data.seattle.gov/Finance/2011-Active-Business-License-Data/c3ri-wwcn" target="_blank">2011</a>
+                        <a href="https://data.seattle.gov/Finance/2012-Business-License-Data-Updated-June-2013-/qmtq-5rpt" target="_blank">2012</a>
+                        <a href="https://data.seattle.gov/Finance/2013-Active-Business-License-Data/d3ef-e2aq" target="_blank">2013</a>
+                        <a href="https://data.seattle.gov/Finance/2014-Active-Business-License-Data/nznw-x77u" target="_blank">2014</a>
+                        <a href="https://data.seattle.gov/Finance/2015-Active-Business-License-Data/hzyd-nfci" target="_blank">2015</a>
+                        <a href="https://data.seattle.gov/Finance/2016-Active-Businesses-License-Data/rewu-ipqu" target="_blank">2016</a>
+                    </p>
+                </div>
+                <div class="column" style="width: 43%; margin-left: 2%; margin-right: 6%">
+                    <p style="font-weight: 400">
+                        Housing Data:
+                    </p>
+                    <p>
+                        <span style="font-weight: 400">Zillow</span> provides their Zillow's Home Value Index, a compilation of the median of Zillow's estimation for the value of homes within a given region.
+                    </p>
+                    <p>
+                        Here's Zillow's portal: <a href="https://www.zillow.com/research/data/" target="_blank">https://www.zillow.com/research/data/</a></br>
+                        And the particular data set we used: <a href="http://files.zillowstatic.com/research/public/Zip/Zip_Zhvi_AllHomes.csv" target="_blank">ZHVI All Homes (by ZIP Code)</a>
+                    </p>
+                    <p>
+                        <span style="font-weight: 400">Redfin</span> provides information pertaining to a particular market's average 'days on market'.
+                    </p>
+                    <p>
+                        Here's Redfin's portal: <a href="https://www.redfin.com/blog/data-center" target="_blank">https://www.redfin.com/blog/data-center</a></br>
+                        The particular data-set we used can be found under the 'Days on Market' tab on the Tableau interface of the page.
+                    </p>
+                </div>
+			</div>
+            <div class = "row" style="height:50%; width: 100%;">
+				<div class="header">
+					<div class="title" style="margin-left: 1.5%; float: left; font-size: 36px;">About Us</div>
+				</div>
+                <div class="column" style="width: 43%; margin-left: 4%; margin-right: 2%">
+                    <p>
+                        Our names are <span style="font-weight: 400">Gunnar Olson</span>, <span style="font-weight: 400">Halden Lin</span>, <span style="font-weight: 400">Lilian Liang</span>, and <span style="font-weight: 400">Shobhit Hathi</span>.
+                    </p>
+                    <p>
+                        This project was created for the course <span style="font-weight: 400">CSE442: Data Visualization</span>, at the Paul G. Allen School of Computer Science &amp; Engineering within the University of Washington.
+                    </p>
+                    <p>
+                        Special thanks to our professor: <span style="font-weight: 400">Jeff Heer</span>, and teaching assistants: <span style="font-weight: 400">Kanit "Ham" Wongsuphasawat</span> and <span style="font-weight: 400">Jane Hoffswell</span>
+                    </p>
+                </div>
+			</div>
+        </div>
+	</div>
+<script type="text/javascript" src="js/businessVis.js"></script>
+<script type="text/javascript" src="js/simplePArea.js"></script>
+<script type="text/javascript" src="js/zipVis.js"></script>
+<script type="text/javascript" src="js/housing_zipcode.js"></script>
+<script type="text/javascript" src="js/miniHousing.js"></script>
+<script type="text/javascript" src="js/radialBusiness.js"></script>
+<script type="text/javascript" src="js/SeattleZipMap.js"></script>
+<script type="text/javascript" src="js/SeattleZipMapBusiness.js"></script>
+<script type="text/javascript" src="js/cityHousing.js"></script>
+<script type="text/javascript" src="js/cityDemand.js"></script>
+<script type="text/javascript" src="js/d3-annotation.min.js"></script>
+</body>
 </html>
