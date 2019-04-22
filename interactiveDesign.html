@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8">
+    <head>
+        <title>Interactive Design</title>
+      
+        <script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+        
+        <style>
+        h1 { 
+        font-family: sans-serif;
+        text-align: center;
+        }
+
+        svg {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        border: 1px solid black;
+        }
+
+        .dot_data {
+        fill: #ffab00;
+        stroke: #fff;
+        }  
+            
+        .dot_data2 {
+        fill: #ffff00;
+        stroke: #fff;
+        }     
+            
+        </style>
+  </head>
+  <body>
+    <h1>D3 Assignment</h1>
+    <svg class="chart"></svg>
+      
+    <script>
+        const svgWidth = 1200;
+        const svgHeight = 600;
+
+    var allData;
+
+    //Load data 
+	var index = 0;
+    var dataset = [];
+        /*
+		d3.csv("climate-change.csv", (row, i) => {
+		  return {
+			sale: +row["CO2 emissions (kg per 2010 US$ of GDP)"],
+			year: +row.year,
+            country: +row.country,
+		  };
+		}).then(rows => {
+		  rows.sort(function(a,b) {return (a.name).localeCompare(b.name); });
+          allData = rows;   
+		}).catch(error => {
+		  console.log(error);
+		});
+			*/
+            d3.csv("climate-change.csv", function(d){
+               //console.log(data);
+                //console.log(data["Country Name"]);
+                return{
+                    Country:d["Country Name"],
+                    year:d.Year,
+                    Emission:d["CO2 emissions (kg per 2010 US$ of GDP)"]
+                    
+                }
+                
+            },
+            function(data)
+            {
+                const svgWidth = 1200;
+                const svgHeight = 600;
+        
+        //ADD SVG TO THE PAGE!
+                let svg = d3.select(".chart")
+                .style("width",svgWidth)
+                .style("height",svgHeight);
+        
+        //**************************************************************************************************************
+        
+                let MARGINS = {
+                    top: 25,
+                    right: 50,
+                    bottom: 25,
+                    left: 50}
+            ,WIDTH = svgWidth - MARGINS.left - MARGINS.right
+            ,HEIGHT = svgHeight - MARGINS.top - MARGINS.bottom;
+        
+                //SCALES
+                let xScale = d3.scaleLinear().domain([2000, 2010]).range([MARGINS.left, WIDTH]);
+                let yScale = d3.scaleLinear().domain([134, 215]).range([HEIGHT, MARGINS.bottom]);
+
+                //AXES
+                let xAxis = d3.axisBottom().scale(xScale);
+                let yAxis = d3.axisLeft().scale(yScale);
+
+                //ADD THE X AXIS
+                svg.append("g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0," + HEIGHT + ")")
+                    .call(xAxis);
+        
+                //ADD THE Y AXIS
+                svg.append("g")
+                    .attr("class", "y axis")
+                    .attr("transform", "translate(" + (MARGINS.left) + ",0)")
+                .call(yAxis);
+        
+                 //TEXT LABEL FOR X Axis
+                svg.append("text")             
+                    .attr("transform",
+                        "translate(" + 1100 + " ," + 
+                        (HEIGHT + MARGINS.top + 10) + ")")
+                    .style("text-anchor", "middle")
+                    .text("Year");
+        
+                //TEXT LABEL FOR Y Axis
+                svg.append("text")
+                    .attr("transform", "rotate(-90)")
+                    .attr("x",0 - (2 * MARGINS.top))
+                    .attr("y", MARGINS.left)
+                    .attr("dy", "1em")
+                    .style("text-anchor", "middle")
+                    .text("Sales"); 
+
+
+                 //*****************************************************************************************************************
+            
+                //d3 LINE GENERATOR 
+                let lineGen = d3.line()
+                    .x(function(d) {
+                        return xScale(d.year);
+                    })
+                    .y(function(d) {
+                        return yScale(d.sale);
+                    })
+                    .curve(d3.curveMonotoneX);               // apply smoothing to the line;
+
+            //*******************************************************************************************************************
+            //PLOT DATASET 1
+            update(data);
+            
+            let color = 'green';
+            makeLines(data, lineGen, color);
+
+            
+            function makeLines(data, lineGen,color){
+            //LINE FOR SAMPLE DATA 1
+            let path = svg.append('path')
+                .attr('d', lineGen(data))   
+                .attr('stroke', color)
+                .attr('stroke-width', 2)
+                .attr('fill', 'none');
+            
+            //Add animation to the line graph
+            let totalLength = path.node().getTotalLength();
+            
+                path.attr("stroke-dasharray", totalLength + " " + totalLength)
+                .attr("stroke-dashoffset", totalLength)
+                .transition()
+                .duration(6000)
+                .attr("stroke-dashoffset", 0);
+            }
+            
+            
+            function update(data){
+            let scatter = svg.selectAll(".dot_data").data(data);
+            
+            let enter = scatter.enter().append("circle")
+                .on("mouseover", function(d){ 
+                    d3.select(this).transition()
+                    .attr("stroke-width", "5px")
+                    .attr("r", 10);})
+                .on("mouseout", function(){ 
+                    d3.select(this).transition()
+                    .delay(1000)
+                    .attr("stroke-width","0px")
+                    .attr("r",5);});
+            
+            enter.append("title")
+                .text(function(d){ return ('(' + d.year + ", " + d.sale + ')'); });
+            
+            enter.merge(scatter).transition().duration(500)
+                .attr("class", "dot_data")
+                .attr("r", 5)
+                .attr("cx", function(d){return xScale(d.year); })
+                .attr("cy", function(d){return yScale(d.sale); });
+                
+            
+            scatter.exit().transition().duration(500)
+            .attr("cx",0)
+            .attr("fill-opacity",0)
+            .remove();
+        }
+
+            
+
+            }
+            
+            
+            
+            )
+			
+		
+        
+    </script>
+  </body>
+</html>
