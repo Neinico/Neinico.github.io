@@ -37,7 +37,7 @@ $(document).ready(function() {
 		anchors:['firstPage', 'secondPage',  'thirdPage', 'fourthPage', 'fifthPage', 'sixthPage', 'seventhPage', 'eigthPage', 'ninthPage', 'tenthpage'],
 		navigation: true,
 		navigationPosition: 'right',
-		navigationTooltips: ['Introduction', 'Businesses', 'Tech', 'Taxi', 'Business Map', 'Home Values', 'Housing Demand', 'Bringing it Together', 'Combined Map', 'Sources and About Us'],
+		navigationTooltips: ['Introduction', 'Popular Games', 'ESPORTS', 'Biggest Games', 'Mobile Games', 'Sources'],
 		showActiveTooltip: false,
 		slidesNavigation: true,
 		slidesNavPosition: 'bottom',
