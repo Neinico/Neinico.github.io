@@ -8,8 +8,6 @@ var SimpleLine = function(target, fileName, color) {
 	var widthModifier = 1;
 	var graphOffsetLeft = 4;
 	var graphOffsetRight = 20;
-	//var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-	var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 	self.initialize = function() {
 		if (self.initalized) {
