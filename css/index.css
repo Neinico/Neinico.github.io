@@ -20,7 +20,7 @@ p {
 
 item {
     cursor: default;
-    background-color: #dbdbdb;
+    background-color: #5adacf;
     border-radius: 6px;
     padding-left: 2px;
     padding-right: 2px;
@@ -100,7 +100,7 @@ div.header {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: white /*#f9f9f9*/;
+    background-color: rgb(42, 139, 184) /*#f9f9f9*/;
     min-width: 320px;
     z-index: 1;
 }
@@ -112,7 +112,7 @@ div.header {
     text-decoration: none;
     display: block;
     -webkit-user-select: none;
-    -moz-user-select: none:
+    -moz-user-select: none;
     -ms-user-select: none
 }
 
