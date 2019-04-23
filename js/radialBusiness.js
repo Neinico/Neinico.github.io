@@ -5,27 +5,7 @@ var RadialBusiness = function(target) {
     self.margin = {top: 0, bottom: 0, left: 0, right: 0};
     var zips = ['98118', '98119', '98116', '98117', '98115', '98112', '98195', '98199', '98178',       '98144', '98122', '98164', '98121', '98109', '98108', '98105', '98104', '98107', '98106', '98101', '98126', '98103', '98102', '98125', '98146', '98134', '98136', '98154', '98133', '98174', '98177'];
 
-    var sectorNames = ['Professional, Scientific and Technical Services',
-                    'Transportation and Warehousing',
-                    'Other Services (Except Public Administration)',
-                    'Retail Trade',
-                    'Construction',
-                    'Health Care & Social Assistance',
-                    'Arts, Entertainment, & Recreation',
-                    'Accommodation & Food Services',
-                    'Administrative & Support & Waste',
-                    'Wholesale Trade',
-                    'Manufacturing',
-                    'Real Estate, Rental & Leasing',
-                    'Information',
-                    'Educational Services',
-                    'Finance and Insurance',
-                    'Public Administration',
-                    'Management of Companies and Enterprises',
-                    'Agriculture, Forestry, Fishing and Hunting',
-                    'Utilities',
-                    'Mining',
-                    'Unclassified'];
+    var sectorNames = ['Fortnite','League of Legends', 'World of Warcraft'];
 
 	var kelly_colors = ['#F99379', '#E25822', '#654522', '#C2B280', '#F38400', '#DCD300',
         '#882D17', '#F3C300', '#F6A600', '#BE0032', '#A1CAF1', '#0067A5', '#E68FAC', '#B3446C',
