@@ -20,7 +20,7 @@ var SimpleLine = function(target, fileName, color) {
 		self.height = document.getElementById(target).clientHeight;
 
 		// load data
-		d3.csv("data/" + fileName,
+		d3.csv("https://github.com/Neinico/Neinico.github.io/tree/master/data/" + fileName,
 			function(row, i) {
 				return {
 					date: formatDate(row.date),
