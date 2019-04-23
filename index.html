@@ -14,7 +14,6 @@
   <script type="text/javascript" src="js/countUp.js"></script>
   <script type="text/javascript" src="js/simpleLine.js"></script>
 </head>
-
 <body>
     <script>document.body.className += ' fade-out';</script>
 	<div id = "fullpage">
@@ -43,7 +42,7 @@
 						</div>
 						<div class="row">
                             
-                                <img src="https://github.com/Neinico/Neinico.github.io/Revenue(EA).png" alt="EA's Revenue" height="42" width="42">
+                                <img src="https://github.com/Neinico/Neinico.github.io/Revenue(EA).png" alt="EA revenue" height="42" width="42">
 							
                             <div id="businessOverviewDate" style="font-size: 14px; text-align: left">
 								EA revenue throughout the years
@@ -55,7 +54,7 @@
 						</div>
 						<div class="row">
                                 
-                                <img src="https://github.com/Neinico/Neinico.github.io/Revenue(Activision Blizzard).png" alt="Blizzard's Reveneue" height="42" width="42">
+                                <img src="https://github.com/Neinico/Neinico.github.io/Revenue(Activision Blizzard).png" alt="Blizzard Revenue" height="42" width="42">
 							</div>
 							<div id="homeOverviewDate" style="font-size: 14px; text-align: left">
 								Activision Blizzard revenue throughout the years
@@ -120,7 +119,98 @@
 				</div>
 			</div>
 		</div>
-        
+        <div class="section">
+            <div class="column" style="height: 100%; width: 40%; margin-left: 5%; margin-right: 2.5%; display: table;">
+                <div style="display: table-cell; vertical-align: middle;">
+                    <p>
+                        <span style="font-size: 18px; font-weight: 400">But Seattle is big.</span>
+                        And diverse. Looking at aggregate counts and percentages doesn't give a nuanced enough view of how the city is changing. The number of businesses may be increasing steadily over the years, but the increase is not uniformly distributed throughout the city. This map shows the distribution of business by ZIP code.
+                        It provides a more informative view of the distribution of <item id="mapsector0">Transportation and Warehousing</item> businesses in Seattle. Interestingly, we see that the zip codes on the outskirts of Seattle, notably 98118 and 98133, have a lot of activity in this particular sector.
+                    </p>
+                    <p>
+                        Mouse over the right side of the screen to pause the animation. Click on the drop-down menu to explore a different business sector, and drag the slider to change the year viewed. Mouse back to the left side of the screen to allow the animation to resume.
+                    </p>
+                </div>
+            </div>
+			<div class="column" id="businessMapColumn" style="height: 100%; width: 45%; margin-left: 2.5%; margin-right: 2.5%; display: table; vertical-align: middle">
+                <div class="row" style="height: 5%">
+                </div>
+                <div class="row" id="businessMenu" style="width: 50%; height: 20px; vertical-align: bottom; text-align: center; margin: auto;">
+                    <div class="dropdown">
+                      <button id="dropbutton" onclick="dropdown()" class="dropbtn" data-index="1">Aggregate &#9662;</button>
+                      <div id="myDropdown" class="dropdown-content">
+                      </div>
+                    </div>
+                </div>
+				<div class="row" id="businessMap" style="width: 100%; padding-top: 2%; padding-bottom: 5%; display: table-cell;  text-align: center;">
+				</div>
+			</div>
+		</div>
+        <div class="section">
+            <div class="column" style="height:100%; width:100%; display: table">
+                <div class="row" style="width: 82.5%; margin-left: 7.5%; margin-right: 10%; margin-top: 10%; height: 20%; display:table">
+					<div style="display: table-cell; vertical-align: middle;">
+						<p>
+                            <span style="font-size: 18px; font-weight: 400">Let's take a look at housing.</span>
+                            While businesses may be a driving force behind Seattle's growth, the raw counts of business licenses alone do not tell the whole story. What is perhaps more representative of change is the housing landscape.
+                            Housing prices reflects the cost of living in an area and thus affects residents more directly than the number of businesses. Below are the median home values for Seattle and three cities that are notorious
+                            for expensive housing: New York City, Los Angeles, and San Francisco. It's interesting to note that Seattle had the highest
+                           <item id="cityhousing0"> percentage increase</item> in median housing prices from 2010 to 2017.
+						</p>
+					</div>
+				</div>
+                <div class="row" style="width: 100%; display: table; margin-left: 5%; padding-right: 45px;">
+                        <div style="width: 95%; margin-right: 5%;">
+                            <div class="column" style="width: 22.5%;">
+                                <div id="newyork" style="vertical-align: middle; text-align: center">
+                                </div>
+                            </div>
+                            <div class="column" style="width: 22.5%;">
+                                <div id="losangeles" style="vertical-align: middle; text-align: center">
+                                </div>
+                            </div>
+                            <div class="column" style="width: 22.5%;">
+                                <div id="sanfrancisco" style="width: 100%; vertical-align: middle; text-align: center">
+                                </div>
+                            </div>
+                            <div class="column" style="width: 22.5%;">
+                                <div id="seattle" style="vertical-align: middle; text-align: center">
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="column" style="height:100%; width:100%; display: table">
+                <div class="row" style="height: 20%"></div>
+                <div class="row" style="width: 100%; display: table">
+                    <div class="column" style="width: 22.5%; margin-left: 16.25%">
+                        <div id="losangelesdemand" style="vertical-align: middle; text-align: center">
+                        </div>
+                    </div>
+                    <div class="column" style="width: 22.5%;">
+                        <div id="sfdemand" style="width: 100%; vertical-align: middle; text-align: center">
+                        </div>
+                    </div>
+                    <div class="column" style="width: 22.5%; margin-right: 16.25%">
+                        <div id="seattledemand" style="vertical-align: middle; text-align: center">
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="width: 82.5%; margin-left: 7.5%; margin-right: 10%; height: 20%; display:table">
+                    <div style="display: table-cell; vertical-align: middle;">
+                        <p>
+                            <span style="font-size: 18px; font-weight: 400">Supply and demand: days on market.</span> While Seattle housing prices are skyrocketing, housing supply for demand seems to be quickly decreasing. Take a look at the average number of days
+                            houses were on the market in Seattle, Los Angeles, and San Francisco in <item id="demand0">December 2016</item>. The fact that houses in Seattle are being bought very quickly, coupled with rising housing prices, shows that the demand for housing in Seattle is growing to quickly for supply to keep up.
+                            <p style="color: #b5b5b5">
+                                Note: no data for this measure was available for the city of New York.
+                            </p>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="section">
             <div style="display: table; width: 82.5%; margin-left: 7.5%; margin-right: 10%; height: 100%">
                 <div style="display: table-cell; width: 100%; vertical-align: middle;">
@@ -149,6 +239,8 @@
                 <div class="row" id="radialBusiness" style="height: 60%; display: table-cell; vertical-align: middle; text-align: center">
                 </div>
             </div>
+        </div>
+        <div class="section" style="display: table; width: 100%">
         </div>
         <div class="section" style="display: table; width: 100%">
             <div class="row" style="height:50%; width: 100%;">
@@ -181,14 +273,29 @@
                         And the particular data we used: the league of legends, dota2 and csgo data.
                     </p>
                     <p>
-                        <span style="font-weight: 400">Redfin</span> provides information pertaining to a particular market's average 'days on market'.
+                        <span style="font-weight: 400">Gregory Smith</span> provides information pertaining of a particular games in the market. He provides years of information regarding sales of each game. 
                     </p>
                     <p>
-                        Here's Redfin's portal: <a href="https://www.redfin.com/blog/data-center" target="_blank">https://www.redfin.com/blog/data-center</a></br>
+                        Here's Gregory Smith's portal: <a href="https://www.kaggle.com/gregorut/videogamesales#vgsales.csv" target="_blank">https://www.redfin.com/blog/data-center</a></br>
                         The particular data-set we used can be found under the 'Days on Market' tab on the Tableau interface of the page.
                     </p>
                 </div>
 			</div>
+            <div class = "row" style="height:50%; width: 100%;">
+				<div class="header">
+					<div class="title" style="margin-left: 1.5%; float: left; font-size: 36px;">About Us</div>
+				</div>
+                <div class="column" style="width: 43%; margin-left: 4%; margin-right: 2%">
+                    <p>
+                        My names are <span style="font-weight: 400">Nicolas Zhang</span>
+                    </p>
+                    <p>
+                        This project was created for the course <span style="font-weight: 400">CSC196V: Data Visualization</span>, at California State University of Sacramento.
+                    </p>
+                   
+                </div>
+			</div>
+        </div>
             <div class = "row" style="height:50%; width: 100%;">
 				<div class="header">
 					<div class="title" style="margin-left: 1.5%; float: left; font-size: 36px;">About Us</div>
