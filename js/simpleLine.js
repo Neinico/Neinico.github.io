@@ -8,11 +8,8 @@ var SimpleLine = function(target, fileName, color) {
 	var widthModifier = 1;
 	var graphOffsetLeft = 4;
 	var graphOffsetRight = 20;
-<<<<<<< HEAD
 	//var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-=======
 	var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
->>>>>>> 38393b02aa730d90c46ee44f3225e1490f30a59f
 
 	self.initialize = function() {
 		if (self.initalized) {
@@ -130,14 +127,13 @@ var SimpleLine = function(target, fileName, color) {
 
 	function formatDate(raw) {
 		var year = raw.substring(0, raw.indexOf('-'));
-<<<<<<< HEAD
+
 		//var month = parseInt(raw.substring(raw.indexOf('-') + 1)) - 1;
 		return new Date(year);
-=======
+
 		var month = parseInt(raw.substring(raw.indexOf('-') + 1)) - 1;
 		return new Date(year, month);
->>>>>>> 38393b02aa730d90c46ee44f3225e1490f30a59f
-	}
+
 
 	/** Focus on the nearest datapoint */
 	function mousemove() {
@@ -183,14 +179,13 @@ var SimpleLine = function(target, fileName, color) {
 		var element = document.getElementById(target + "Date");
 		var previous = element.innerHTML;
         if (target === "homeOverview") {
-<<<<<<< HEAD
+ 
 		    var next = previous.substring(0, previous.indexOf("of") + 3)  /*+ months[date.getMonth()]*/ + " " + date.getFullYear();
-=======
+
 		    var next = previous.substring(0, previous.indexOf("of") + 3)  + months[date.getMonth()] + " " + date.getFullYear();
->>>>>>> 38393b02aa730d90c46ee44f3225e1490f30a59f
         } else {
             var next = previous.substring(0, previous.indexOf("of") + 3) + date.getFullYear();
         }
 		element.innerHTML = next;
 	}
-}
+}}
