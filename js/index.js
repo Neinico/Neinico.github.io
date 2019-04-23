@@ -189,8 +189,13 @@ $(document).ready(function() {
         separator : ',',
         decimal : '.',
     };
+<<<<<<< HEAD
+    var EAGraph = new SimpleLine("businessOverview", "RevenueEA.csv", '#F99379');
+    EAGraph.initialize();
+=======
     var businessGraph = new SimpleLine("businessOverview", "businessoverview.csv", '#F99379');
     businessGraph.initialize();
+>>>>>>> 38393b02aa730d90c46ee44f3225e1490f30a59f
 
     var housingGraph = new SimpleLine("homeOverview", "houseoverview.csv", '#0067A5');
     housingGraph.initialize();
