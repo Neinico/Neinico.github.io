@@ -171,7 +171,7 @@ $(document).ready(function() {
     var EAGraph = new SimpleLine("businessOverview", "RevenueEA.csv", '#F99379');
     EAGraph.initialize();
 
-    var housingGraph = new SimpleLine("homeOverview", "houseoverview.csv", '#0067A5');
+    var housingGraph = new SimpleLine("homeOverview", "Revenue(Activison Blizzard).csv", '#0067A5');
     housingGraph.initialize();
     options.prefix = '$';
     var businessCount = new CountUp("businessOverviewCount", 0, 9000000000, 0, 2, options);
