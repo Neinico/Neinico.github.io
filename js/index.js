@@ -173,11 +173,11 @@ $(document).ready(function() {
 
     var housingGraph = new SimpleLine("homeOverview", "houseoverview.csv", '#0067A5');
     housingGraph.initialize();
-
-    var businessCount = new CountUp("businessOverviewCount", 0, 90589, 0, 2, options);
+    options.prefix = '$';
+    var businessCount = new CountUp("businessOverviewCount", 0, 9000000000, 0, 2, options);
     businessCount.start();
     options.prefix = '$';
-    var housePriceCount = new CountUp("homeOverviewCount", 0, 638100, 0, 2, options);
+    var housePriceCount = new CountUp("homeOverviewCount", 0, 9000000000, 0, 2, options);
     housePriceCount.start();
 
 	var businessVis = new BusinessVis("businessVisualization");
