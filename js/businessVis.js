@@ -98,7 +98,7 @@ var BusinessVis = function(target) {
 	var circleRadius = 4;
 	var circleStrokeWidth = 1;
 
-    var sectorNames = ['Fortnite','League of Legends', 'World of Warcraft'];
+    var sectorNames = ['Fortnite','League of Legends', 'World of Warcraft','CSGO','Overwatch','DFO','Pokemon'];
 
 	var kelly_colors = ['#F99379', '#E25822', '#654522', '#C2B280', '#F38400', '#DCD300',
         '#882D17', '#F3C300', '#F6A600', '#BE0032', '#A1CAF1', '#0067A5', '#E68FAC', '#B3446C',
