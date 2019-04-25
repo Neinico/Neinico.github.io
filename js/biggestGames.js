@@ -2,7 +2,7 @@
  var fileName = "data/vgsales.csv";
  //Rank,Name,Platform,Year,Genre,Publisher,NA_Sales,EU_Sales,JP_Sales,Other_Sales,Global_Sales
 
- var nutritionFields = ["NA_Sales","EU_Sales", "JP_Sales", "Other_Sales", "Global_Sales"];
+ var nutritionFields = ["NA_Sales","EU_Sales", "JP_Sales", "Global_Sales"];
 
  d3.csv(fileName, function(error, data) {
      var cerealMap = {};
@@ -101,7 +101,7 @@
          updateBars(newData);
      };
 
-     // Get names of cereals, for dropdown
+     // Get names of Games, for dropdown
      var cereals = Object.keys(cerealMap).sort();
 
      var dropdown = d3.select("#taxiPlot")
