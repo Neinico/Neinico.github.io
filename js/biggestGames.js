@@ -118,4 +118,4 @@
 
      var initialData = cerealMap[ cereals[0] ];
      updateBars(initialData);
- };
+ }
