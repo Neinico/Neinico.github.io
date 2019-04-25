@@ -180,6 +180,9 @@ $(document).ready(function() {
     var housePriceCount = new CountUp("homeOverviewCount", 0, 9000000000, 0, 2, options);
     housePriceCount.start();
 
+    var biggestGame = biggestGames();
+    
+
 	var businessVis = new BusinessVis("businessVisualization");
 	businessVis.initialize();
     var bizviz0 = document.getElementById("bizviz0");
