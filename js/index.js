@@ -174,15 +174,15 @@ $(document).ready(function() {
     var housingGraph = new SimpleLine("homeOverview", "Revenue(Activison Blizzard).csv", '#0067A5');
     housingGraph.initialize();
     options.prefix = '$';
-    var businessCount = new CountUp("businessOverviewCount", 0, 9000000000, 0, 2, options);
+   /* var businessCount = new CountUp("businessOverviewCount", 0, 9000000000, 0, 2, options);
     businessCount.start();
     options.prefix = '$';
     var housePriceCount = new CountUp("homeOverviewCount", 0, 9000000000, 0, 2, options);
     housePriceCount.start();
-
+*/
     var biggestGame = biggestGames();
-    var biggestGenre = BiggestGenre();
-
+    var linegraph = interactiveLine();
+    
 
 	var businessVis = new BusinessVis("businessVisualization");
 	businessVis.initialize();
