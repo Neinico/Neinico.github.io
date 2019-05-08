@@ -181,8 +181,8 @@ $(document).ready(function() {
     housePriceCount.start();
 
     var biggestGame = biggestGames();
-    var linegraph = interactiveLine();
-    
+    var biggestGenre = BiggestGenre();
+
 
 	var businessVis = new BusinessVis("businessVisualization");
 	businessVis.initialize();
