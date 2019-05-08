@@ -100,7 +100,7 @@
      // Get names of Games, for dropdown
      var cereals = Object.keys(cerealMap).sort();
 
-     var dropdown = d3.select("#taxiPlot")
+     var dropdown = d3.select("#businessOverview")
          .insert("select", "svg")
          .on("change", dropdownChange);
 
