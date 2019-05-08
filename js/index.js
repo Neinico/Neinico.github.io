@@ -170,8 +170,6 @@ $(document).ready(function() {
     };
     var EAGraph = new SimpleLine("businessOverview", "RevenueEA.csv", '#F99379');
     EAGraph.initialize();
-    var ActGraph = new interactiveLine();
-    
 
     var housingGraph = new SimpleLine("homeOverview", "Revenue(Activison Blizzard).csv", '#0067A5');
     housingGraph.initialize();
