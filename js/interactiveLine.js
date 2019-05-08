@@ -20,17 +20,21 @@
 
  var makeVis = function(cerealMap) {
      // Define dimensions of vis
-     var margin = {
-        top: 20,
-        right: 80,
-        bottom: 30,
-        left: 50
-      },
-      width = 900 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+     var margin = { top: 30, right: 50, bottom: 30, left: 50 },
+         width  = 550 - margin.left - margin.right,
+         height = 250 - margin.top  - margin.bottom;
+
+     // Make x scale
+     var xScale = d3.scale.ordinal()
+         .domain(nutritionFields)
+         .rangeRoundBands([0, width], 0.1);
+
+     // Make y scale, the domain will be defined on bar update
+     var yScale = d3.scale.linear()
+         .range([height, 0]);
 
      // Create canvas
-     var canvas = d3.select("#businessOverview")
+     var canvas = d3.select("#taxiPlot")
        .append("svg")
          .attr("width",  width  + margin.left + margin.right)
          .attr("height", height + margin.top  + margin.bottom)
